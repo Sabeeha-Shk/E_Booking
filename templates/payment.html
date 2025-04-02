@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #E6E6FA; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+        h2 { text-align: center; color: #4B0082; }
+        .details { margin-bottom: 15px; padding: 10px; background-color: #D8BFD8; border-radius: 8px; }
+        .details p { margin: 5px 0; }
+        label { font-weight: bold; }
+        input { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 10px; background-color: #8A2BE2; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+        button:hover { background-color: #9400D3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Payment Page</h2>
+        <div class="details" id="booking-summary"></div>
+
+        <h3>Select Payment Method</h3>
+        <label><input type="radio" name="payment" value="credit"> Credit Card</label><br>
+        <label><input type="radio" name="payment" value="debit"> Debit Card</label><br>
+        <label><input type="radio" name="payment" value="upi"> UPI</label><br>
+
+        <button onclick="confirmPayment()">Confirm Payment</button>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return Object.fromEntries(params.entries());
+        }
+
+        function displayPaymentDetails() {
+            const detailsDiv = document.getElementById("booking-summary");
+            const params = getQueryParams();
+            let detailsHTML = "<h3>Booking Summary</h3>";
+
+            if (params.movie) {
+                detailsHTML += `<p><strong>Movie:</strong> ${params.movie}</p>
+                                <p><strong>Theater:</strong> ${params.theater}</p>
+                                <p><strong>Show Time:</strong> ${params.time}</p>
+                                <p><strong>Price:</strong> ₹${params.price}</p>`;
+            } else if (params.event) {
+                detailsHTML += `<p><strong>Event:</strong> ${params.event}</p>
+                                <p><strong>Location:</strong> ${params.location}</p>
+                                <p><strong>Address:</strong> ${params.address}</p>
+                                <p><strong>Date:</strong> ${params.date}</p>
+                                <p><strong>Price:</strong> ₹${params.price}</p>`;
+            } else {
+                detailsHTML += `<p><strong>Transport Type:</strong> ${params.type}</p>
+                                <p><strong>Company:</strong> ${params.name}</p>
+                                <p><strong>Time:</strong> ${params.time}</p>
+                                <p><strong>Price:</strong> ₹${params.price}</p>
+                                <p><strong>Seats:</strong> ${params.seats}</p>`;
+            }
+
+            detailsDiv.innerHTML = detailsHTML;
+        }
+
+        function confirmPayment() {
+            alert("Payment successfully done! Thank you for using E-BOOKING platform.");
+        }
+
+        displayPaymentDetails();
+    </script>
+</body>
+</html>

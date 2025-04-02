@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stand-up Comedy Events</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #E6E6FA; /* Lavender Theme */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .event-card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        .event-card:hover {
+            transform: scale(1.05);
+        }
+        .event-card h2 {
+            color: #6A5ACD; /* Slate Blue */
+        }
+        .price {
+            font-weight: bold;
+            color: #8A2BE2; /* Blue Violet */
+            font-size: 18px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 18px;
+            background: #9370DB; /* Medium Purple */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #7B68EE; /* Medium Slate Blue */
+        }
+        .header {
+            color:#4B0082;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">🎤 Upcoming Stand-up Comedy Events 🎭</h1>
+
+        <div class="event-card">
+            <h2>Comedy Night with Vir Das</h2>
+            <p><strong>Location:</strong> Mumbai, India</p>
+            <p><strong>Address:</strong> Jio World Drive, BKC, Mumbai</p>
+            <p><strong>Date:</strong> March 15, 2025</p>
+            <p class="price">Price: ₹1,200</p>
+            <button class="btn" onclick="bookEvent('Comedy Night with Vir Das', 'Mumbai', 'Jio World Drive, BKC, Mumbai', 'March 15, 2025', '1200')">🎟 Book Now</button>
+        </div>
+
+        <div class="event-card">
+            <h2>Kenny Sebastian Live</h2>
+            <p><strong>Location:</strong> Bangalore, India</p>
+            <p><strong>Address:</strong> Good Shepherd Auditorium, Richmond Town, Bangalore</p>
+            <p><strong>Date:</strong> March 22, 2025</p>
+            <p class="price">Price: ₹999</p>
+            <button class="btn" onclick="bookEvent('Kenny Sebastian Live', 'Bangalore', 'Good Shepherd Auditorium, Richmond Town, Bangalore', 'March 22, 2025', '999')">🎟 Book Now</button>
+        </div>
+
+        <div class="event-card">
+            <h2>Zakir Khan Special</h2>
+            <p><strong>Location:</strong> Delhi, India</p>
+            <p><strong>Address:</strong> Siri Fort Auditorium, August Kranti Marg, Delhi</p>
+            <p><strong>Date:</strong> April 5, 2025</p>
+            <p class="price">Price: ₹1,500</p>
+            <button class="btn" onclick="bookEvent('Zakir Khan Special', 'Delhi', 'Siri Fort Auditorium, August Kranti Marg, Delhi', 'April 5, 2025', '1500')">🎟 Book Now</button>
+        </div>
+    </div>
+
+    <script>
+        function bookEvent(eventName, location, address, date, price) {
+    window.location.href = `/book?name=${encodeURIComponent(eventName)}&location=${encodeURIComponent(location)}&address=${encodeURIComponent(address)}&date=${encodeURIComponent(date)}&price=${encodeURIComponent(price)}&type=Event`;
+}
+    </script>
+</body>
+</html>

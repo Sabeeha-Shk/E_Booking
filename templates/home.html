@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E Booking - E-Booking Platform</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #f4e1f5;
+            color: #4a235a;
+            font-family: 'Poppins', sans-serif;
+        }
+        .navbar {
+            background-color: #6a0dad !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-dark .navbar-brand, .navbar-dark .nav-link {
+            color: #f4e1f5 !important;
+            transition: color 0.3s;
+        }
+        .navbar-dark .nav-link:hover {
+            color: #d8bfd8 !important;
+        }
+        .btn-primary {
+            background-color: #ab47bc !important;
+            border-color: #8e24aa !important;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+        .btn-primary:hover {
+            background-color: #8e24aa !important;
+            border-color: #6a0dad !important;
+        }
+        .btn-light {
+            background-color: #d8bfd8 !important;
+            color: #4a235a !important;
+            transition: all 0.3s ease;
+        }
+        .btn-light:hover {
+            background-color: #c49bcc !important;
+        }
+        .bg-primary {
+            background-color: #9b59b6 !important;
+        }
+        .card {
+            background-color: #e6c6e6 !important;
+            border-color: #ab47bc !important;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .footer {
+            background-color: #6a0dad !important;
+            color: #fff;
+            padding: 20px 0;
+        }
+        .animate-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">E Booking</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-primary text-white text-center py-5 animate-fade-in">
+        <h1>Welcome to E Booking</h1>
+        <p>Explore the World with E Booking, Book your adventure, from hiking trails to city escapes</p>
+    </header>
+
+    <section class="container my-5 animate-fade-in">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Travel</h3>
+                    <p>Book Train, Bus, and Flight tickets with ease.</p>
+                    <a href="{{ url_for('travel') }}" class="btn btn-primary">Explore Destinations</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Movies</h3>
+                    <p>Browse and book movie tickets.</p>
+                    <a href="{{ url_for('movies') }}" class="btn btn-primary">See Showtimes</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3">
+                    <h3>Events</h3>
+                    <p>Attend Stand-up Comedy.</p>
+                    <a href="{{ url_for('events') }}" class="btn btn-primary">Discover Events</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container my-5 animate-fade-in">
+        <div class="text-center">
+            <h2>About Us</h2>
+            <p class="lead">E Booking is your one-stop platform for hassle-free booking of travel, movies, and events. Our mission is to provide a seamless experience by offering a simple and secure way to book tickets online. Whether you need to catch a flight, reserve a movie seat, or attend a live concert, we've got you covered!</p>
+        </div>
+    </section>
+
+    <footer class="footer text-center">
+        <p>&copy; 2025 E Booking. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

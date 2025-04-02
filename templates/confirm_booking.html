@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E6E6FA; /* Lavender */
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            background: #D8BFD8; /* Thistle */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #8A2BE2; /* Blue Violet */
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #6A0DAD;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Confirm Your Booking</h2>
+        <div class="box">
+            <p><strong>Category:</strong> {{ booking.category }}</p>
+            <p><strong>Sub-Category:</strong> {{ booking.sub_category }}</p>
+            <p><strong>Date:</strong> {{ booking.date }}</p>
+            <p><strong>Time:</strong> {{ booking.time }}</p>
+            <p><strong>Seats Available:</strong> {{ booking.available_seats }}</p>
+        </div>
+
+        <form action="{{ url_for('finalize_booking') }}" method="post">
+            <input type="hidden" name="booking_id" value="{{ booking.id }}">
+            <button type="submit">Confirm Booking</button>
+        </form>
+    </div>
+</body>
+</html>

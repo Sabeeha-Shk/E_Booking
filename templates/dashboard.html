@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E6E6FA;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #6A0DAD;
+            padding: 15px;
+            text-align: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 0 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            text-align: center;
+            color: #4B0082;
+        }
+        .section {
+            margin-top: 20px;
+        }
+        .booking-list {
+            list-style: none;
+            padding: 0;
+        }
+        .booking-list li {
+            background: #f4f4f4;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px;
+            background: #6A0DAD;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/home">🏠 Home</a>
+        <a href="/profile">👤 Profile</a>
+        <a href="/logout">🚪 Logout</a>
+    </div>
+    <div class="container">
+        <h2>Welcome, {{ user.name }}!</h2>
+
+        <div class="section">
+            <h3>Upcoming Bookings</h3>
+            <ul class="booking-list">
+                {% for booking in upcoming_bookings %}
+                    <li>{{ booking.category }} - {{ booking.date }} at {{ booking.time }}
+                        <form action="/modify_booking/{{ booking.id }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn">✏️ Modify</button>
+                        </form>
+                        <form action="/cancel_booking/{{ booking.id }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn">❌ Cancel</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li>No upcoming bookings</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Past Bookings</h3>
+            <ul class="booking-list">
+                {% for booking in past_bookings %}
+                    <li>{{ booking.category }} - {{ booking.date }}</li>
+                {% else %}
+                    <li>No past bookings</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+        </div>
+    </div>
+</body>
+</html>

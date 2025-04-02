@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #E6E6FA;
+            color: #4B0082;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+        .movie-card {
+            background-color: #D8BFD8;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .movie-details {
+            flex: 1;
+        }
+        .search-container, .filter-container {
+            margin-bottom: 20px;
+        }
+        input, select, button {
+            padding: 10px;
+            margin-right: 5px;
+            border: 1px solid #4B0082;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4B0082;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #6A5ACD;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Movie Listings</h2>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search for movies...">
+            <button onclick="searchMovie()">Search</button>
+        </div>
+        <div class="filter-container">
+            <select id="cityFilter">
+                <option value="">All Cities</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Bangalore">Bangalore</option>
+            </select>
+            <button onclick="filterMovies()">Filter</button>
+        </div>
+        <div id="movieList"></div>
+    </div>
+
+    <script>
+        const movies = [
+            { name: "Jawan", theater: "PVR Cinemas", city: "Mumbai", time: "7:30 PM", price: "250" },
+            { name: "Pathaan", theater: "INOX", city: "Delhi", time: "9:00 PM", price: "300" },
+            { name: "RRR", theater: "Cinepolis", city: "Hyderabad", time: "6:00 PM", price: "350" },
+            { name: "KGF Chapter 2", theater: "PVR Cinemas", city: "Bangalore", time: "8:00 PM", price: "280" },
+            { name: "Drishyam 2", theater: "INOX", city: "Kolkata", time: "7:00 PM", price: "260" },
+            { name: "Vikram", theater: "Cinepolis", city: "Chennai", time: "9:30 PM", price: "320" },
+            { name: "Pushpa", theater: "PVR Cinemas", city: "Hyderabad", time: "6:30 PM", price: "270" },
+            { name: "Baahubali 2", theater: "INOX", city: "Kolkata", time: "5:00 PM", price: "300" },
+            { name: "Avatar 2", theater: "IMAX", city: "Mumbai", time: "8:00 PM", price: "400" },
+            { name: "Black Panther: Wakanda Forever", theater: "PVR Cinemas", city: "Delhi", time: "6:45 PM", price: "350" },
+            { name: "Oppenheimer", theater: "INOX", city: "Bangalore", time: "9:15 PM", price: "450" },
+            { name: "The Batman", theater: "Cinepolis", city: "Hyderabad", time: "7:00 PM", price: "380" },
+            { name: "Top Gun: Maverick", theater: "PVR Cinemas", city: "Mumbai", time: "5:45 PM", price: "360" }
+        ];
+
+        function displayMovies(filterCity = "") {
+            const movieList = document.getElementById("movieList");
+            movieList.innerHTML = "";
+            movies.filter(movie => !filterCity || movie.city === filterCity)
+                  .forEach(movie => {
+                let movieCard = document.createElement("div");
+                movieCard.classList.add("movie-card");
+                movieCard.innerHTML = `
+                    <div class="movie-details">
+                        <h3>${movie.name}</h3>
+                        <p>Theater: ${movie.theater}</p>
+                        <p>City: ${movie.city}</p>
+                        <p>Show Time: ${movie.time}</p>
+                        <p>Price: ₹${movie.price}</p>
+                        <button onclick="bookMovie('${movie.name}', '${movie.time}', '${movie.theater}', '${movie.price}')">Book Now</button>
+                    </div>
+                `;
+                movieList.appendChild(movieCard);
+            });
+        }
+function bookMovie(movieName, movieTime, theater, price) {
+    window.location.href = `/book?name=${encodeURIComponent(movieName)}&time=${encodeURIComponent(movieTime)}&theater=${encodeURIComponent(theater)}&price=${encodeURIComponent(price)}&type=Movie`;
+}
+        function searchMovie() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            displayMovies();
+            let filteredMovies = movies.filter(movie => movie.name.toLowerCase().includes(searchInput));
+            const movieList = document.getElementById("movieList");
+            movieList.innerHTML = "";
+            filteredMovies.forEach(movie => {
+                let movieCard = document.createElement("div");
+                movieCard.classList.add("movie-card");
+                movieCard.innerHTML = `
+                    <div class="movie-details">
+                        <h3>${movie.name}</h3>
+                        <p>Theater: ${movie.theater}</p>
+                        <p>City: ${movie.city}</p>
+                        <p>Show Time: ${movie.time}</p>
+                        <p>Price: ₹${movie.price}</p>
+                        <button onclick="bookMovie('${movie.name}', '${movie.time}', '${movie.theater}', '${movie.price}')">Book Now</button>
+                    </div>
+                `;
+                movieList.appendChild(movieCard);
+            });
+        }
+
+        function filterMovies() {
+            const cityFilter = document.getElementById("cityFilter").value;
+            displayMovies(cityFilter);
+        }
+
+        displayMovies();
+    </script>
+</body>
+</html>

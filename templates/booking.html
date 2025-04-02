@@ -1,0 +1,109 @@
+<!-- Updated booking.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; }
+        .container { max-width: 700px; margin: 40px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); }
+        h2 { text-align: center; color: #4B0082; font-size: 26px; }
+        .details { margin-bottom: 20px; padding: 20px; background-color: #E6E6FA; border-radius: 10px; }
+        .details p { margin: 5px 0; font-size: 18px; }
+        button { width: 100%; padding: 14px; background-color: #6A0DAD; color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; font-size: 18px; transition: background 0.3s; }
+        button:hover { background-color: #5a0090; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Complete Your Booking</h2>
+        <div class="details" id="booking-details"></div>
+        <form id="bookingForm" action="payment.html" method="GET">
+        </form>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return Object.fromEntries(params.entries());
+        }
+
+        function displayBookingDetails() {
+            const detailsDiv = document.getElementById("booking-details");
+            const params = getQueryParams();
+            let detailsHTML = "<h3>Booking Summary</h3>";
+
+            for (const key in params) {
+                detailsHTML += `<p><strong>${key.replace('_', ' ')}:</strong> ${params[key]}</p>`;
+                const input = document.createElement("input");
+                input.type = "hidden";
+                input.name = key;
+                input.value = params[key];
+                document.getElementById("bookingForm").appendChild(input);
+            }
+
+            detailsDiv.innerHTML = detailsHTML;
+        }
+
+        displayBookingDetails();
+    </script>
+</body>
+</html>
+
+<!-- Updated payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; }
+        .container { max-width: 700px; margin: 40px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); }
+        h2 { text-align: center; color: #4B0082; font-size: 26px; }
+        .details { margin-bottom: 20px; padding: 20px; background-color: #E6E6FA; border-radius: 10px; }
+        .details p { margin: 5px 0; font-size: 18px; }
+        button { width: 100%; padding: 14px; background-color: #6A0DAD; color: white; border: none; border-radius: 6px; cursor: pointer; margin-top: 20px; font-size: 18px; transition: background 0.3s; }
+        button:hover { background-color: #5a0090; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Payment details</h2>
+        <div class="details" id="booking-summary"></div>
+
+        <h3>Select Payment Method</h3>
+        <label><input type="radio" name="payment" value="credit"> Credit Card</label><br>
+        <label><input type="radio" name="payment" value="debit"> Debit Card</label><br>
+        <label><input type="radio" name="payment" value="upi"> UPI</label><br>
+
+        <button onclick="confirmPayment()">Confirm Payment</button>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return Object.fromEntries(params.entries());
+        }
+
+        function displayPaymentDetails() {
+            const detailsDiv = document.getElementById("booking-summary");
+            const params = getQueryParams();
+            let detailsHTML = "<h3>Booking Summary</h3>";
+
+            for (const key in params) {
+                detailsHTML += `<p><strong>${key.replace('_', ' ')}:</strong> ${params[key]}</p>`;
+            }
+
+            detailsDiv.innerHTML = detailsHTML;
+        }
+
+        function confirmPayment() {
+            alert("Payment successfully done! Thank you for using E-BOOKING platform.");
+        }
+
+        displayPaymentDetails();
+    </script>
+</body>
+</html>

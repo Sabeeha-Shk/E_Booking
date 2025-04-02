@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Travel Booking</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #E6E6FA; }
+        .tabs { display: flex; cursor: pointer; }
+        .tab { padding: 12px 20px; border: 1px solid #ccc; border-bottom: none; background-color: #D8BFD8; transition: 0.3s ease-in-out; flex-grow: 1; text-align: center; }
+        .tab.active { background-color: #9400D3; color: white; font-weight: bold; }
+        .tab:hover { background-color: #BA55D3; }
+        .tab-content { display: none; padding: 20px; border: 1px solid #ccc; background-color: #F3E5F5; animation: fadeIn 0.5s ease-in-out; }
+        .tab-content.active { display: block; }
+        .results { margin-top: 10px; padding: 10px; border-radius: 5px; background-color: #DDA0DD; display: none; }
+        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #ccc; }
+        .result-text { flex: 1; }
+        button { padding: 10px 15px; border: none; background-color: #8A2BE2; color: white; font-size: 16px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        button:hover { background-color: #9400D3; }
+        input, select { padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <h2>Book Your Travel</h2>
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('flights')">✈ Flights</div>
+        <div class="tab" onclick="showTab('trains')">🚆 Trains</div>
+        <div class="tab" onclick="showTab('buses')">🚌 Buses</div>
+    </div>
+
+    <div id="flights" class="tab-content active">
+        <h3>Book a Flight</h3>
+        <label>From: <input type="text" id="flight-from" placeholder="Enter city"></label>
+        <label>To: <input type="text" id="flight-to" placeholder="Enter city"></label>
+        <label>Date: <input type="date"></label>
+        <button onclick="searchTravel('flight')">Search Flights</button>
+        <div id="flight-results" class="results"></div>
+    </div>
+
+    <div id="trains" class="tab-content">
+        <h3>Book a Train</h3>
+        <label>From: <input type="text" id="train-from" placeholder="Enter city"></label>
+        <label>To: <input type="text" id="train-to" placeholder="Enter city"></label>
+        <label>Date: <input type="date"></label>
+        <button onclick="searchTravel('train')">Search Trains</button>
+        <div id="train-results" class="results"></div>
+    </div>
+
+    <div id="buses" class="tab-content">
+        <h3>Book a Bus</h3>
+        <label>From: <input type="text" id="bus-from" placeholder="Enter city"></label>
+        <label>To: <input type="text" id="bus-to" placeholder="Enter city"></label>
+        <label>Date: <input type="date"></label>
+        <button onclick="searchTravel('bus')">Search Buses</button>
+        <div id="bus-results" class="results"></div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function searchTravel(type) {
+            let resultsDiv = document.getElementById(`${type}-results`);
+            resultsDiv.innerHTML = "Searching...";
+            resultsDiv.style.display = 'block';
+
+            setTimeout(() => {
+                let travelData = {
+                    flight: [
+                        { name: "Indigo", time: "10:00 AM", price: "₹10,000", type: "Flight" },
+                        { name: "Air India", time: "2:00 PM", price: "₹12,500", type: "Flight" },
+                        { name: "SpiceJet", time: "6:00 PM", price: "₹9,800", type: "Flight" }
+                    ],
+                    train: [
+                        { name: "Rajdhani Express", time: "8:00 AM", price: "₹2,500", type: "Train" },
+                        { name: "Shatabdi Express", time: "1:00 PM", price: "₹1,800", type: "Train" },
+                        { name: "Duronto Express", time: "5:00 PM", price: "₹2,000", type: "Train" }
+                    ],
+                    bus: [
+                        { name: "Volvo AC", time: "9:00 AM", price: "₹1,200", type: "Bus" },
+                        { name: "Sleeper Bus", time: "11:00 PM", price: "₹1,000", type: "Bus" },
+                        { name: "Non-AC Bus", time: "7:30 AM", price: "₹800", type: "Bus" }
+                    ]
+                };
+
+                let resultHTML = "<h4>Available Options</h4>";
+                travelData[type].forEach(travel => {
+                    resultHTML += `<div class='result-item'>
+                        <div class='result-text'><strong>${travel.name}</strong> - ${travel.time} - ${travel.price}</div>
+                       <a href="/book?name=${encodeURIComponent(travel.name)}&time=${encodeURIComponent(travel.time)}&price=${encodeURIComponent(travel.price)}&type=${encodeURIComponent(travel.type)}">
+                     <button>Book Now</button>
+                      </a>
+                  </div>`;
+                });
+                resultsDiv.innerHTML = resultHTML;
+            }, 1000);
+        }
+
+        function bookNow(name, time, price, type) {
+            let bookingURL = `booking.html?name=${encodeURIComponent(name)}&time=${encodeURIComponent(time)}&price=${encodeURIComponent(price)}&type=${encodeURIComponent(type)}`;
+            window.location.href = bookingURL;
+        }
+
+    </script>
+</body>
+</html>
