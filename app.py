@@ -7,7 +7,7 @@ from datetime import datetime
 
 # Flask App Configuration
 app = Flask(__name__, template_folder="templates")
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:sql-404@localhost/e_booking'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:OaFzNAKowhngukanTNVEpcmyBiUTuykk@postgres.railway.internal:5432/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -222,5 +222,5 @@ def book():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080)) # Railway provides a PORT
+    port = int(os.environ.get("PORT", 8080))  # Use Railway's assigned port
     app.run(host="0.0.0.0", port=port, debug=False)
